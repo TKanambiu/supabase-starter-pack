@@ -40,50 +40,51 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 bg-background">
-      {/* Contact strip — thicker, clickable, phone pulses */}
+      {/* Contact strip — stacks cleanly on phones, row on desktop */}
       <div className="bg-topbar text-topbar-foreground">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 text-sm">
-          <a
-            href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.address)}`}
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-2 font-medium hover:text-accent"
-          >
-            <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 group-hover:bg-accent/20">
-              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s-8-7.5-8-13a8 8 0 1 1 16 0c0 5.5-8 13-8 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            </span>
-            <span className="tracking-wide">{COMPANY.address}</span>
-          </a>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a href={`mailto:${COMPANY.email}`} className="group inline-flex items-center gap-2 font-medium hover:text-accent">
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 group-hover:bg-accent/20">
-                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <div className="mx-auto max-w-7xl px-4 py-2.5 text-[13px] sm:py-3 sm:text-sm">
+          <div className="grid gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-3">
+            <a
+              href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.address)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex min-w-0 items-center gap-2 font-medium hover:text-accent"
+            >
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/10 group-hover:bg-accent/20 sm:h-7 sm:w-7">
+                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s-8-7.5-8-13a8 8 0 1 1 16 0c0 5.5-8 13-8 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>
               </span>
-              <span className="tracking-wide">{COMPANY.email}</span>
+              <span className="truncate tracking-wide">{COMPANY.address}</span>
             </a>
+            <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+              <a href={`mailto:${COMPANY.email}`} className="group inline-flex min-w-0 items-center gap-2 font-medium hover:text-accent">
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/10 group-hover:bg-accent/20 sm:h-7 sm:w-7">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                </span>
+                <span className="truncate tracking-wide">{COMPANY.email}</span>
+              </a>
 
-            <span className="hidden h-6 w-px bg-white/15 sm:block" />
+              <span className="hidden h-6 w-px bg-white/15 sm:block" />
 
-            <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-2 py-1 backdrop-blur-sm">
-              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground shadow-sm">
-                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>
-              </span>
-              <div className="flex flex-col leading-none">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/55">Sales &amp; Support</span>
-                <div className="mt-1 flex items-center gap-2">
-                  {COMPANY.phones.slice(0, 2).map((p, idx) => (
-                    <span key={p} className="flex items-center gap-2">
-                      {idx > 0 && <span className="h-3 w-px bg-white/25" />}
-                      <a href={`tel:${p.replace(/\s/g, "")}`} className="text-[13px] font-bold tracking-wide text-white transition hover:text-accent">
-                        {p}
-                      </a>
-                    </span>
-                  ))}
+              <div className="flex w-full items-center gap-2 rounded-full border border-white/15 bg-white/5 px-2 py-1 backdrop-blur-sm sm:w-auto">
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground shadow-sm sm:h-7 sm:w-7">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>
+                </span>
+                <div className="flex min-w-0 flex-col leading-none">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/55">Sales &amp; Support</span>
+                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                    {COMPANY.phones.slice(0, 2).map((p, idx) => (
+                      <span key={p} className="flex items-center gap-2">
+                        {idx > 0 && <span className="h-3 w-px bg-white/25" />}
+                        <a href={`tel:${p.replace(/\s/g, "")}`} className="text-[12px] font-bold tracking-wide text-white transition hover:text-accent sm:text-[13px]">
+                          {p}
+                        </a>
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -204,10 +205,10 @@ export function SiteHeader() {
           ))}
           <Link
             to="/featured-products"
-            className="ml-auto flex items-center gap-2 rounded-full bg-featured px-5 py-2 text-sm font-bold uppercase tracking-widest text-featured-foreground shadow-md transition hover:brightness-105"
-            activeProps={{ className: "ml-auto flex items-center gap-2 rounded-full bg-featured px-5 py-2 text-sm font-bold uppercase tracking-widest text-featured-foreground shadow-md ring-2 ring-white/70" }}
+            className="ml-auto flex animate-pulse-ring items-center gap-2 rounded-full bg-featured px-5 py-2 text-sm font-bold uppercase tracking-widest text-featured-foreground shadow-md transition hover:brightness-105"
+            activeProps={{ className: "ml-auto flex animate-pulse-ring items-center gap-2 rounded-full bg-featured px-5 py-2 text-sm font-bold uppercase tracking-widest text-featured-foreground shadow-md ring-2 ring-white/70" }}
           >
-            <span className="inline-block h-2 w-2 rounded-full bg-white" />
+            <span className="inline-block h-2 w-2 animate-blink rounded-full bg-white" />
             Offers
           </Link>
 

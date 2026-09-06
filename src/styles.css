@@ -110,6 +110,15 @@
   to { transform: translateX(-50%); }
 }
 
+/* Rightward marquee (logos slide left-to-right) */
+.animate-marquee-right { animation: marquee 22s linear infinite reverse; }
+
+@keyframes blink-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+.animate-blink { animation: blink-soft 1.2s ease-in-out infinite; }
+
 @keyframes cat-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
