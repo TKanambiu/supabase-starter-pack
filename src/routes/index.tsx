@@ -458,8 +458,8 @@ function TestimonialsSection() {
 
         <div className="mt-14 grid gap-6 border-t border-border pt-10 sm:grid-cols-3">
           {[
-            { value: 150, suffix: "+", label: "Hospitals & clinics served" },
-            { value: 40, suffix: "+", label: "NGO & humanitarian partners" },
+            { value: 1200, suffix: "+", label: "Hospitals & clinics served" },
+            { value: 350, suffix: "+", label: "NGO & humanitarian partners" },
             { value: 98, suffix: "%", label: "On-time delivery rate" },
           ].map((s) => (
             <div key={s.label} className="text-center">
@@ -508,18 +508,14 @@ function CountUp({ end, duration = 1800 }: { end: number; duration?: number }) {
 }
 
 
-const PARTNERS = [
-  { name: "3M", domain: "3m.com" },
-  { name: "Omron", domain: "omronhealthcare.com" },
-  { name: "Mindray", domain: "mindray.com" },
-  { name: "Olympus", domain: "olympus-global.com" },
-  { name: "Sritrang", domain: "sritranggloves.com" },
-  { name: "Polymed", domain: "polymedicure.com" },
-  { name: "Medica", domain: "medicagroup.com" },
-  { name: "Haier", domain: "haiermedical.com" },
-];
+const PARTNER_LOGOS = [
+  "acon", "air", "anios", "cami", "dabi", "dia", "drge", "eden", "fkg", "fona",
+  "haier", "inn", "labo", "med", "mind", "nsk", "omeg", "omron", "ormco", "poly",
+  "reis", "rey", "runyes", "seca", "tutt", "united", "vadi", "vat",
+].map((f) => `/partners/${f}.png`);
 
 function PartnershipsSection() {
+  const loop = [...PARTNER_LOGOS, ...PARTNER_LOGOS];
   return (
     <section className="bg-muted/30 py-16">
       <div className="mx-auto max-w-7xl px-4">
@@ -532,33 +528,27 @@ function PartnershipsSection() {
             We partner with ISO-certified global manufacturers to bring you trusted medical technology.
           </p>
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
-          {PARTNERS.map((p) => (
+      </div>
+      <div
+        className="group relative mt-10 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
+        }}
+      >
+        <div className="flex w-max gap-6 animate-marquee-right group-hover:[animation-play-state:paused]">
+          {loop.map((src, i) => (
             <div
-              key={p.name}
-              className="group relative flex aspect-[5/3] items-center justify-center overflow-hidden rounded-2xl border-4 border-brand bg-background shadow-[0_10px_30px_-12px_rgba(0,0,0,0.25)] ring-1 ring-brand/20 transition hover:-translate-y-1.5 hover:border-accent hover:shadow-[0_18px_40px_-14px_rgba(0,0,0,0.35)]"
-              title={p.name}
+              key={i}
+              className="flex h-24 w-44 shrink-0 items-center justify-center rounded-2xl border border-border bg-background px-6 shadow-sm transition hover:border-accent/50 hover:shadow-md"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-accent/5" />
-              <div className="relative flex h-full w-full flex-col items-center justify-center px-4">
-                <img
-                  src={`https://logo.clearbit.com/${p.domain}`}
-                  alt={`${p.name} logo`}
-                  loading="lazy"
-                  className="max-h-16 max-w-[80%] object-contain transition duration-300 group-hover:scale-105"
-                  onError={(e) => {
-                    const el = e.currentTarget;
-                    el.replaceWith(Object.assign(document.createElement("span"), {
-                      className: "font-display text-2xl font-extrabold tracking-tight text-brand",
-                      textContent: p.name,
-                    }));
-                  }}
-                />
-                <span className="mt-3 text-xs font-bold uppercase tracking-widest text-brand/80">
-                  {p.name}
-                </span>
-              </div>
-              <div className="absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-brand via-accent to-brand" />
+              <img
+                src={src}
+                alt="Partner brand logo"
+                loading="lazy"
+                decoding="async"
+                className="max-h-14 max-w-full object-contain"
+              />
             </div>
           ))}
         </div>
