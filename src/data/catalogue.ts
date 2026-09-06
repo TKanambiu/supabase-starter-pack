@@ -29,6 +29,7 @@ const IMG: Record<string, string> = {
   "hospital-furniture": "/cat-furniture.jpg",
   "theater-emergency": "/cat-theater.jpg",
   "imaging-radiology": "/cat-imaging.jpg",
+  "ophthalmic-eye-care": "/hero2.webp",
 };
 
 /** Product photos live in /public — matched to products by normalised name. */
@@ -474,6 +475,32 @@ const RAW_CATEGORIES: Omit<Category, "image">[] = [
       },
     ],
   },
+  {
+    slug: "ophthalmic-eye-care",
+    name: "Ophthalmic & Eye Care",
+    tagline: "Complete vision-care workstations and diagnostics.",
+    description:
+      "Ophthalmic refraction units, diagnostics and optical workshop equipment for eye clinics and optical centres.",
+    subcategories: [
+      {
+        name: "Refraction & Exam",
+        products: [
+          p("Ophthalmic Refraction Unit (Chair & Stand)", 385000, 420000),
+          p("Auto Refractometer", 480000, 520000),
+          p("Slit Lamp Microscope", 265000, 295000),
+          p("Trial Lens Set (266 pcs)", 38000, 45000),
+        ],
+      },
+      {
+        name: "Optical Workshop",
+        products: [
+          p("Digital Lensmeter", 145000, 165000),
+          p("Pupillometer", 18500, 22000),
+          p("Lens Edger (Semi-Auto)", 320000, 350000),
+        ],
+      },
+    ],
+  },
 ];
 
 export const CATEGORIES: Category[] = RAW_CATEGORIES.map((c) => ({ ...c, image: IMG[c.slug] }));
@@ -481,7 +508,7 @@ export const CATEGORIES: Category[] = RAW_CATEGORIES.map((c) => ({ ...c, image: 
 export const COMPANY = {
   name: "Zentramed Health",
   tagline: "Advancing Healthcare and Humanitarian Solutions",
-  address: "Bazaar Plaza, Nairobi, Kenya",
+  address: "Bazaar Plaza, 9th Floor, Suite A901, Nairobi, Kenya",
   phones: ["+254 722 708 420", "+254 759 228 552"],
   email: "info@zentramedhealth.co.ke",
   website: "www.zentramedhealth.co.ke",
