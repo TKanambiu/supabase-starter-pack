@@ -39,7 +39,9 @@ export const Route = createFileRoute("/products/$slug")({
 });
 
 function CategoryPage() {
-  const { category } = Route.useLoaderData() as { category: Category };
+  const { category: baseCategory } = Route.useLoaderData() as { category: Category };
+  const { data: db } = useCatalogueDb();
+  const category = mergeCategory(baseCategory, db);
   const { q: initialQ } = Route.useSearch();
   const [q, setQ] = useState(initialQ ?? "");
   useEffect(() => { if (initialQ !== undefined) setQ(initialQ); }, [initialQ]);
