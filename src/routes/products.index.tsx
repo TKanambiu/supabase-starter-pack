@@ -5,6 +5,7 @@ import { whatsappLink } from "@/lib/whatsapp";
 import { PageHero } from "./about";
 import { CATEGORIES, COMPANY, allProducts, formatKES } from "@/data/catalogue";
 import { useEffect, useMemo, useState } from "react";
+import { useCatalogueDb, mergedProducts } from "@/lib/catalogue-db";
 import { Search, MessageCircle, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/products/")({
@@ -26,7 +27,8 @@ function ProductsPage() {
   const { q: initialQ } = Route.useSearch();
   const [q, setQ] = useState(initialQ ?? "");
   useEffect(() => { if (initialQ !== undefined) setQ(initialQ); }, [initialQ]);
-  const products = useMemo(() => allProducts(), []);
+  const { data: db } = useCatalogueDb();
+  const products = useMemo(() => (db ? mergedProducts(db) : allProducts()), [db]);
   const filtered = q
     ? products.filter((p) => p.name.toLowerCase().includes(q.toLowerCase()))
     : [];
