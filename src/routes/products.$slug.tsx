@@ -3,6 +3,7 @@ import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { whatsappLink } from "@/lib/whatsapp";
 import { getCategory, COMPANY, CATEGORIES, formatKES, type Category } from "@/data/catalogue";
+import { useCatalogueDb, mergeCategory } from "@/lib/catalogue-db";
 import { ChevronRight, MessageCircle, Search as SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -39,7 +40,9 @@ export const Route = createFileRoute("/products/$slug")({
 });
 
 function CategoryPage() {
-  const { category } = Route.useLoaderData() as { category: Category };
+  const { category: baseCategory } = Route.useLoaderData() as { category: Category };
+  const { data: db } = useCatalogueDb();
+  const category = mergeCategory(baseCategory, db);
   const { q: initialQ } = Route.useSearch();
   const [q, setQ] = useState(initialQ ?? "");
   useEffect(() => { if (initialQ !== undefined) setQ(initialQ); }, [initialQ]);

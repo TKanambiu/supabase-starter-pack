@@ -141,7 +141,7 @@ const PRODUCT_FILES: string[] = [
   "iv-cannula-branula.png",
 ];
 
-const normKey = (s: string) =>
+export const normKey = (s: string) =>
   s
     .replace(/\u00B3/g, "3")
     .replace(/"/g, "in")
