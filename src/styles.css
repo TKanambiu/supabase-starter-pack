@@ -37,8 +37,12 @@
   --color-featured: var(--featured);
   --color-featured-foreground: var(--featured-foreground);
   --color-featured-soft: var(--featured-soft);
-  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --color-footer-surface: var(--footer-surface);
+  --color-footer-muted: var(--footer-muted);
+  --color-brand-soft: var(--brand-soft);
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
 }
 
 :root {
@@ -50,35 +54,38 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.02 200);
 
-  /* Brand: ZentraMed teal + deep navy */
-  --brand: oklch(0.52 0.093 195);
+  /* Brand: precise aqua + deep clinical navy */
+  --brand: oklch(0.57 0.098 191);
   --brand-foreground: oklch(0.99 0 0);
-  --brand-accent: oklch(0.30 0.062 250);
+  --brand-accent: oklch(0.31 0.055 238);
   --brand-accent-foreground: oklch(0.99 0 0);
+  --brand-soft: oklch(0.82 0.064 192);
 
-  --primary: oklch(0.52 0.093 195);
+  --primary: oklch(0.57 0.098 191);
   --primary-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.96 0.018 195);
   --secondary-foreground: oklch(0.28 0.05 220);
   --muted: oklch(0.97 0.012 195);
   --muted-foreground: oklch(0.47 0.025 215);
-  --accent: oklch(0.30 0.062 250);
+  --accent: oklch(0.74 0.08 193);
   --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.91 0.015 200);
   --input: oklch(0.91 0.015 200);
-  --ring: oklch(0.52 0.093 195);
+  --ring: oklch(0.57 0.098 191);
 
-  --topbar: oklch(0.28 0.058 250);
+  --topbar: oklch(0.31 0.055 238);
   --topbar-foreground: oklch(0.985 0 0);
+  --footer-surface: oklch(0.19 0.035 238);
+  --footer-muted: oklch(0.69 0.02 230);
 
   /* Featured Products — deliberately off-brand amber so it stands out in the nav */
   --featured: oklch(0.72 0.17 62);
   --featured-foreground: oklch(0.21 0.04 60);
   --featured-soft: oklch(0.97 0.03 75);
 
-  --gradient-hero: linear-gradient(90deg, oklch(0.28 0.058 250 / 0.82) 0%, oklch(0.32 0.07 220 / 0.5) 40%, oklch(0.52 0.093 195 / 0.18) 70%, transparent 100%);
+  --gradient-hero: linear-gradient(90deg, oklch(0.22 0.05 238 / 0.94) 0%, oklch(0.31 0.07 220 / 0.74) 42%, oklch(0.57 0.098 191 / 0.24) 72%, transparent 100%);
   --shadow-card: 0 8px 28px -12px oklch(0.40 0.08 205 / 0.38);
 }
 
@@ -89,8 +96,16 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-feature-settings: "kern" 1, "liga" 1;
+    letter-spacing: 0;
+    line-height: 1.65;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+    line-height: 1.08;
+  }
+  p { text-wrap: pretty; }
 }
 
 @keyframes pulse-ring {
