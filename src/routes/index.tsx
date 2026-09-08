@@ -249,10 +249,8 @@ function HomePage() {
       </section>
 
       {/* About — image-led institutional story */}
-      <section className="overflow-hidden border-y border-border bg-background py-20 lg:py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-12 lg:gap-20">
-          <div className="relative">
-          </div>
+      <section className="overflow-hidden border-y border-border bg-background py-16 lg:py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-12 lg:gap-16">
           <div className="relative lg:col-span-6">
             <div className="absolute -left-4 -top-4 hidden h-full w-full border border-brand-soft md:block" />
             <img
@@ -270,31 +268,31 @@ function HomePage() {
             <div className="flex items-center gap-3 font-mono text-[10px] font-bold uppercase text-brand">
               <span className="h-px w-10 bg-brand" /> About Zentramed Health
             </div>
-            <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-foreground md:text-5xl">
+            <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
               Advancing healthcare, together.
             </h2>
-            <div className="mt-7 border-l-2 border-brand pl-5">
-              <p className="leading-8 text-muted-foreground md:text-lg">
+            <div className="mt-6 border-l-2 border-brand pl-5">
+              <p className="leading-7 text-muted-foreground">
                 Zentramed Health is a trusted supplier of high-quality medical supplies, equipment and
                 solutions to hospitals, clinics, NGOs, government institutions and humanitarian organizations
                 across Africa. Our mission is to improve health outcomes by delivering quality, innovation
                 and exceptional service.
               </p>
             </div>
-            <dl className="mt-9 grid border-y border-border sm:grid-cols-2">
+            <dl className="mt-7 grid border-y border-border sm:grid-cols-2">
               {[
                 { t: "Quality Assured Sourcing", d: "ISO-certified suppliers only." },
                 { t: "Wide Product Range", d: "9 categories, 500+ SKUs." },
                 { t: "Reliable Delivery", d: "Nationwide, cold-chain ready." },
                 { t: "Customer-First Support", d: "Dedicated account managers." },
               ].map((v) => (
-                <div key={v.t} className="border-b border-border py-5 sm:odd:border-r sm:odd:pr-5 sm:even:pl-5 sm:[&:nth-last-child(-n+2)]:border-b-0">
+                <div key={v.t} className="border-b border-border py-4 sm:odd:border-r sm:odd:pr-5 sm:even:pl-5 sm:[&:nth-last-child(-n+2)]:border-b-0">
                   <dt className="font-display text-sm font-bold text-foreground">{v.t}</dt>
                   <dd className="mt-1.5 text-xs text-muted-foreground">{v.d}</dd>
                 </div>
               ))}
             </dl>
-            <Link to="/about" className="mt-9 inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-sm font-bold text-brand-foreground shadow-md transition hover:bg-brand/90">
+            <Link to="/about" className="mt-7 inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-sm font-bold text-brand-foreground shadow-md transition hover:bg-brand/90">
               Learn more about us →
             </Link>
           </div>
