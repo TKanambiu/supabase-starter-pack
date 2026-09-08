@@ -130,29 +130,34 @@ function HomePage() {
               <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 md:min-h-[600px] md:grid-cols-2 md:gap-14 md:py-14">
                 {/* Copy column — kept fully clear of the photo */}
                 <div className="order-2 text-white md:order-1">
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent/95 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground shadow-lg">
+                  <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-accent/50 bg-accent/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-accent backdrop-blur-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                     {s.eyebrow}
                   </div>
-                  <h1 className="font-display text-3xl font-bold leading-tight md:text-5xl">
-                    {s.title}{" "}
-                    <span className="text-accent">{s.accent}</span>
+                  <h1 className="font-display text-[2.1rem] font-extrabold leading-[0.98] tracking-[-0.04em] md:text-[3.6rem]">
+                    <span className="block text-white">{s.title}</span>
+                    <span className="mt-1 block font-normal text-white/55">{s.accent}</span>
                   </h1>
-                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/90 md:text-base">{s.body}</p>
-                  <ul className="mt-5 space-y-2 text-sm text-white/90 md:text-[15px]">
+                  <p className="mt-6 max-w-lg text-[15px] font-light leading-relaxed text-white/75 md:text-[17px]">
+                    {s.body}
+                  </p>
+                  <ul className="mt-7 max-w-lg divide-y divide-white/10 border-y border-white/10">
                     {s.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2.5">
-                        <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <li key={b} className="flex items-start gap-3 py-2.5 text-[13.5px] font-medium leading-snug text-white/85 md:text-[14.5px]">
+                        <svg viewBox="0 0 24 24" className="mt-0.5 h-4 w-4 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 5 5L20 7" /></svg>
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-7 flex flex-wrap gap-3">
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
                     <WhatsAppButton text={s.waText} />
-                    <Link to="/contact" className="rounded-md border-2 border-white/80 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm hover:bg-white/20">
-                      Contact Sales →
+                    <Link to="/contact" className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.14em] text-white transition hover:border-accent hover:text-accent">
+                      Contact Sales
+                      <span className="transition-transform group-hover:translate-x-1">→</span>
                     </Link>
                   </div>
                 </div>
+
 
                 {/* Photo column — nothing written over it */}
                 <div className="order-1 md:order-2">
