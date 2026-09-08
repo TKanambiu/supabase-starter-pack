@@ -96,16 +96,21 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "kern" 1, "liga" 1;
-    letter-spacing: 0;
-    line-height: 1.65;
+    font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
+    letter-spacing: -0.005em;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: 0;
-    line-height: 1.08;
+    letter-spacing: -0.028em;
+    line-height: 1.04;
+    font-weight: 700;
   }
+  h1 { letter-spacing: -0.035em; }
   p { text-wrap: pretty; }
+
 }
 
 @keyframes pulse-ring {
