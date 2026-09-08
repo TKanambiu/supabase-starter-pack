@@ -1,3 +1,4 @@
+import { socialMeta, canonicalLink, breadcrumbLd } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
@@ -16,16 +17,33 @@ export const Route = createFileRoute("/products/$slug")({
     if (!category) throw notFound();
     return { category };
   },
-  head: ({ loaderData }) => ({
+  head: ({ params, loaderData }) => ({
     meta: loaderData
       ? [
           { title: `${loaderData.category.name} | Zentramed Health` },
           { name: "description", content: loaderData.category.description },
           { property: "og:title", content: `${loaderData.category.name} | Zentramed Health` },
           { property: "og:description", content: loaderData.category.description },
+          ...socialMeta(`/products/${params.slug}`),
+        ]
+      : [],
+    links: loaderData ? canonicalLink(`/products/${params.slug}`) : [],
+    scripts: loaderData
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify(
+              breadcrumbLd([
+                { name: "Home", path: "/" },
+                { name: "Products", path: "/products" },
+                { name: loaderData.category.name, path: `/products/${params.slug}` },
+              ]),
+            ),
+          },
         ]
       : [],
   }),
+
   notFoundComponent: () => (
     <div className="p-10 text-center">
       Category not found. <Link to="/products" className="text-accent underline">Back to products</Link>

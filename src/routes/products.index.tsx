@@ -1,3 +1,4 @@
+import { socialMeta, canonicalLink, breadcrumbLd } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
@@ -18,7 +19,10 @@ export const Route = createFileRoute("/products/")({
       { name: "description", content: "Browse Zentramed Health's full catalogue — PPE, lab diagnostics, imaging, oxygen therapy, hospital furniture, neonatal & surgical theatre equipment." },
       { property: "og:title", content: "Zentramed Health Product Catalogue" },
       { property: "og:description", content: "Full catalogue of medical supplies and equipment." },
+      ...socialMeta("/products"),
     ],
+    links: canonicalLink("/products"),
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(breadcrumbLd([{ name: "Home", path: "/" }, { name: "Products", path: "/products" }])) }],
   }),
   component: ProductsPage,
 });
