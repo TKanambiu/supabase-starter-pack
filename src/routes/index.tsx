@@ -73,10 +73,17 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Zentramed Health is a trusted Nairobi-based supplier of medical supplies, hospital equipment, laboratory diagnostics and humanitarian healthcare solutions across Africa." },
       { property: "og:title", content: "Zentramed Health | Medical Equipment Supplier in Nairobi" },
       { property: "og:description", content: "Quality medical supplies, hospital equipment and healthcare solutions across Africa." },
+      ...socialMeta("/"),
+    ],
+    links: canonicalLink("/"),
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(organizationLd) },
+      { type: "application/ld+json", children: JSON.stringify(websiteLd) },
     ],
   }),
   component: HomePage,
 });
+
 
 function HomePage() {
   const [i, setI] = useState(0);
