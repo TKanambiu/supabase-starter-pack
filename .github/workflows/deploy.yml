@@ -8,45 +8,25 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Get latest code
-      uses: actions/checkout@v4
+      - name: Get latest code
+        uses: actions/checkout@v4
 
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v2
-      with:
-        bun-version: latest
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
-    # Forces a clean client-only frontend build, bypassing the Cloudflare SSR crash entirely
-    - name: Install dependencies and Build Standalone SPA
-      run: |
-        bun install
-        bun x vite build --ssr false || bun x vite build
+      - name: Install dependencies and build static site
+        run: |
+          bun install
+          bun run build
+          test -f dist/index.html
 
-    # Dynamically injects the missing index document required by cPanel
-    - name: Inject Root Entry Document
-      run: |
-        TARGET_DIR=""
-        if [ -d "./.output/public" ]; then TARGET_DIR="./.output/public";
-        elif [ -d "./dist/client" ]; then TARGET_DIR="./dist/client";
-        elif [ -d "./dist" ]; then TARGET_DIR="./dist"; fi
-        
-        echo "Target production directory found at: $TARGET_DIR"
-        
-        JS_FILE=$(basename $(ls $TARGET_DIR/assets/index-*.js | head -n 1))
-        CSS_FILE=$(basename $(ls $TARGET_DIR/assets/styles-*.css | head -n 1))
-        
-        echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Zentramed Health</title><script type='module' src='./assets/$JS_FILE'></script><link rel='stylesheet' href='./assets/$CSS_FILE'></head><body><div id='root'></div></body></html>" > $TARGET_DIR/index.html
-        cp $TARGET_DIR/index.html $TARGET_DIR/404.html
-        
-        # Save the path variable for the deployment step
-        echo "DEPLOY_DIR=$TARGET_DIR" >> $GITHUB_ENV
-
-    # Syncs the finalized clean browser app straight to Truehost
-    - name: Sync built files via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: '51.91.29.218'
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ${{ env.DEPLOY_DIR }}/
-        server-dir: public_html/
+      - name: Sync built files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: '51.91.29.218'
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: public_html/
