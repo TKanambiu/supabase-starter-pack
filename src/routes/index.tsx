@@ -257,7 +257,7 @@ function HomePage() {
             <div className="absolute -left-4 -top-4 hidden h-full w-full rounded-2xl border-2 border-accent/40 md:block" />
             <div className="absolute -right-3 -bottom-3 hidden h-full w-full rounded-2xl bg-gradient-to-br from-brand/20 to-accent/20 md:block" />
             <img
-              src="/medical-grade-storage-facility.webp"
+              src="/zentramed-warehouse.png"
               alt="Zentramed medical-grade storage facility"
               className="relative aspect-[4/3] w-full rounded-2xl object-cover shadow-2xl ring-1 ring-border"
               loading="lazy"
