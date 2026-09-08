@@ -1,3 +1,4 @@
+import { socialMeta, canonicalLink, breadcrumbLd } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
@@ -22,7 +23,10 @@ export const Route = createFileRoute("/featured-products")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...socialMeta("/featured-products"),
     ],
+    links: canonicalLink("/featured-products"),
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(breadcrumbLd([{ name: "Home", path: "/" }, { name: "Featured Products", path: "/featured-products" }])) }],
   }),
   component: FeaturedProductsPage,
 });
