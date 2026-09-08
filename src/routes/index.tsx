@@ -365,17 +365,32 @@ function HomePage() {
       <TestimonialsSection />
 
       {/* CTA */}
-      <section className="bg-topbar text-topbar-foreground">
-        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 py-14 md:grid-cols-[1fr_auto]">
+      <section className="relative overflow-hidden bg-topbar text-topbar-foreground">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
+        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl items-end gap-10 px-4 py-20 md:grid-cols-[1.15fr_auto]">
           <div>
-            <h2 className="font-display text-3xl font-bold md:text-4xl">Ready to equip your facility?</h2>
-            <p className="mt-2 text-brand-foreground/80">Talk to our team for tailored quotes, bulk orders and technical advice.</p>
+            <div className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em] text-accent">
+              <span className="h-px w-10 bg-accent" /> Let's Talk
+            </div>
+            <h2 className="mt-5 max-w-2xl font-display text-[2.1rem] font-extrabold leading-[1.02] tracking-[-0.035em] md:text-[3.2rem]">
+              Ready to equip
+              <span className="block font-normal text-white/55">your facility?</span>
+            </h2>
+            <p className="mt-5 max-w-md text-[15px] font-light leading-relaxed text-white/70">
+              Tailored quotes, bulk orders and technical advice — from a team that answers within the hour.
+            </p>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-4 md:justify-end">
             <WhatsAppButton />
+            <Link to="/contact" className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.14em] text-white transition hover:border-accent hover:text-accent">
+              Contact Sales
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
           </div>
         </div>
       </section>
+
 
       <SiteFooter />
       <WhatsAppFloat />
