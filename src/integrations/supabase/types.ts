@@ -100,6 +100,48 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          category_slug: string
+          created_at: string
+          id: string
+          image_url: string | null
+          is_custom: boolean
+          name: string
+          price: number
+          product_key: string
+          reseller: number | null
+          subcategory: string
+          updated_at: string
+        }
+        Insert: {
+          category_slug: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_custom?: boolean
+          name: string
+          price?: number
+          product_key: string
+          reseller?: number | null
+          subcategory?: string
+          updated_at?: string
+        }
+        Update: {
+          category_slug?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_custom?: boolean
+          name?: string
+          price?: number
+          product_key?: string
+          reseller?: number | null
+          subcategory?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
