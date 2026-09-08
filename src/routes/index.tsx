@@ -1,3 +1,4 @@
+import { socialMeta, canonicalLink, organizationLd, websiteLd } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
