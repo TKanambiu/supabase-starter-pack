@@ -259,8 +259,14 @@ export function SiteFooter() {
 
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
         <div className="sm:col-span-2 lg:col-span-4 lg:pr-10">
-          <img src="/logo-zentramed.png" alt="Zentramed Health" loading="lazy" decoding="async" className="h-16 w-auto object-contain object-left brightness-0 invert" />
-          <p className="mt-6 max-w-sm text-sm leading-7 text-footer-muted">
+          <Link
+            to="/"
+            aria-label="Zentramed Health home"
+            className="inline-flex border-l-4 border-brand-soft bg-background px-5 py-4 shadow-lg"
+          >
+            <img src="/logo-zentramed.png" alt="Zentramed Health — Advancing Healthcare" loading="lazy" decoding="async" className="h-14 w-auto max-w-full object-contain object-left sm:h-16" />
+          </Link>
+          <p className="mt-7 max-w-sm text-sm leading-7 text-footer-muted">
             Medical supplies, clinical equipment and humanitarian healthcare solutions for hospitals, clinics, NGOs and institutions across Africa.
           </p>
           <div className="mt-7 flex items-center gap-3 border-t border-topbar-foreground/10 pt-5">

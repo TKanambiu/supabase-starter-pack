@@ -248,56 +248,53 @@ function HomePage() {
         </div>
       </section>
 
-      {/* About — editorial, professional */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-background via-muted/30 to-background py-20">
-        <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-brand/5 blur-3xl" />
-        <div className="pointer-events-none absolute -right-40 bottom-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 md:grid-cols-2">
+      {/* About — image-led institutional story */}
+      <section className="overflow-hidden border-y border-border bg-background py-20 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-12 lg:gap-20">
           <div className="relative">
-            <div className="absolute -left-4 -top-4 hidden h-full w-full rounded-2xl border-2 border-accent/40 md:block" />
-            <div className="absolute -right-3 -bottom-3 hidden h-full w-full rounded-2xl bg-gradient-to-br from-brand/20 to-accent/20 md:block" />
+          </div>
+          <div className="relative lg:col-span-6">
+            <div className="absolute -left-4 -top-4 hidden h-full w-full border border-brand-soft md:block" />
             <img
               src="/zentramed-warehouse.png"
               alt="Zentramed medical-grade storage facility"
-              className="relative aspect-[4/3] w-full rounded-2xl object-cover shadow-2xl ring-1 ring-border"
+              className="relative aspect-[5/4] w-full object-cover shadow-xl"
               loading="lazy"
             />
-            <div className="absolute -bottom-8 -right-6 hidden rounded-xl bg-background p-5 shadow-2xl ring-1 ring-border md:block">
-              <div>
-                <div className="font-display text-2xl font-bold text-brand">15+ Years</div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">Industry expertise</div>
-              </div>
+            <div className="absolute bottom-0 right-0 bg-brand px-6 py-5 text-brand-foreground shadow-xl">
+              <div className="font-display text-3xl font-bold">15+ Years</div>
+              <div className="mt-1 font-mono text-[10px] uppercase">Industry expertise</div>
             </div>
           </div>
-          <div>
-            <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-accent">
-              <span className="h-px w-10 bg-accent" /> About Zentramed Health
+          <div className="lg:col-span-6">
+            <div className="flex items-center gap-3 font-mono text-[10px] font-bold uppercase text-brand">
+              <span className="h-px w-10 bg-brand" /> About Zentramed Health
             </div>
-            <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-brand md:text-5xl">
-              Advancing healthcare, <span className="italic text-accent">together.</span>
+            <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-foreground md:text-5xl">
+              Advancing healthcare, together.
             </h2>
-            <div className="mt-6 border-l-2 border-accent/60 pl-5">
-              <p className="text-muted-foreground md:text-lg">
+            <div className="mt-7 border-l-2 border-brand pl-5">
+              <p className="leading-8 text-muted-foreground md:text-lg">
                 Zentramed Health is a trusted supplier of high-quality medical supplies, equipment and
                 solutions to hospitals, clinics, NGOs, government institutions and humanitarian organizations
                 across Africa. Our mission is to improve health outcomes by delivering quality, innovation
                 and exceptional service.
               </p>
             </div>
-            <dl className="mt-8 grid gap-4 sm:grid-cols-2">
+            <dl className="mt-9 grid border-y border-border sm:grid-cols-2">
               {[
                 { t: "Quality Assured Sourcing", d: "ISO-certified suppliers only." },
                 { t: "Wide Product Range", d: "9 categories, 500+ SKUs." },
                 { t: "Reliable Delivery", d: "Nationwide, cold-chain ready." },
                 { t: "Customer-First Support", d: "Dedicated account managers." },
               ].map((v) => (
-                <div key={v.t} className="group rounded-xl border-l-2 border-accent/60 bg-background/70 p-4 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-accent hover:shadow-md">
-                  <dt className="font-display text-sm font-bold text-brand">{v.t}</dt>
-                  <dd className="mt-1 text-xs text-muted-foreground">{v.d}</dd>
+                <div key={v.t} className="border-b border-border py-5 sm:odd:border-r sm:odd:pr-5 sm:even:pl-5 sm:[&:nth-last-child(-n+2)]:border-b-0">
+                  <dt className="font-display text-sm font-bold text-foreground">{v.t}</dt>
+                  <dd className="mt-1.5 text-xs text-muted-foreground">{v.d}</dd>
                 </div>
               ))}
             </dl>
-            <Link to="/about" className="mt-10 inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-brand to-brand/80 px-6 py-3 text-sm font-semibold text-brand-foreground shadow-lg transition hover:brightness-110">
+            <Link to="/about" className="mt-9 inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3 text-sm font-bold text-brand-foreground shadow-md transition hover:bg-brand/90">
               Learn more about us →
             </Link>
           </div>
