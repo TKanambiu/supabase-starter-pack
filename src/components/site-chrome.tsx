@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Menu, X, Search, ChevronDown } from "lucide-react";
+import { Menu, X, Search, ChevronDown, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { COMPANY, CATEGORIES } from "@/data/catalogue";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -240,106 +240,71 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 bg-topbar text-topbar-foreground">
-      {/* Newsletter / CTA band */}
-      <div className="border-b border-white/10 bg-gradient-to-r from-brand to-topbar">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 px-4 py-8">
-          <div>
-            <h3 className="font-display text-xl font-semibold text-white md:text-2xl">Need a quote or product advice?</h3>
-            <p className="mt-1 text-sm text-white/70">Our specialists respond within one business day.</p>
+    <footer className="mt-24 bg-footer-surface text-footer-muted">
+      <div className="border-b border-brand-soft/15 bg-topbar">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[10px] font-bold uppercase text-brand-soft">Procurement support / East Africa</p>
+            <h2 className="mt-3 font-display text-2xl font-semibold text-topbar-foreground md:text-3xl">Source the right equipment with confidence.</h2>
+            <p className="mt-2 max-w-xl text-sm text-topbar-foreground/65">Tell our specialists what your facility needs. We respond within one business day.</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <WhatsAppButton size="sm" label="WhatsApp Us" badge={null} />
-            <Link to="/contact" className="inline-flex items-center rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10">
-              Contact Sales
+            <Link to="/contact" className="inline-flex items-center gap-2 rounded-md border border-brand-soft/35 px-5 py-2.5 text-sm font-semibold text-topbar-foreground transition hover:border-brand-soft hover:bg-brand-soft/10">
+              Contact sales <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:grid-cols-12">
-        <div className="md:col-span-4">
-          <img
-            src="/logo-zentramed.png"
-            alt="Zentramed Health"
-            loading="lazy"
-            decoding="async"
-            className="block h-14 w-auto object-contain object-left md:h-16"
-          />
-          <div className="mt-5 h-px w-24 bg-gradient-to-r from-accent to-transparent" />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-topbar-foreground/70">
-            Trusted supplier of medical supplies, equipment and healthcare solutions to hospitals,
-            clinics, NGOs and humanitarian organizations across Africa.
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+        <div className="sm:col-span-2 lg:col-span-4 lg:pr-10">
+          <img src="/logo-zentramed.png" alt="Zentramed Health" loading="lazy" decoding="async" className="h-16 w-auto object-contain object-left brightness-0 invert" />
+          <p className="mt-6 max-w-sm text-sm leading-7 text-footer-muted">
+            Medical supplies, clinical equipment and humanitarian healthcare solutions for hospitals, clinics, NGOs and institutions across Africa.
           </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {["ISO-aligned", "Certified brands", "Pan-African delivery"].map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-white/10 bg-white/[0.06] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/75 backdrop-blur-sm transition hover:border-accent/50 hover:text-accent"
-              >
-                {t}
-              </span>
-            ))}
+          <div className="mt-7 flex items-center gap-3 border-t border-topbar-foreground/10 pt-5">
+            <span className="h-2 w-2 rounded-full bg-brand-soft" />
+            <span className="font-mono text-[10px] uppercase text-footer-muted">Nairobi base / Regional delivery</span>
           </div>
         </div>
 
-
-        <div className="md:col-span-2">
-          <h4 className="relative pb-3 font-display text-sm font-semibold uppercase tracking-[0.2em] text-white after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:rounded-full after:bg-accent">Company</h4>
-          <ul className="mt-5 space-y-2.5 text-sm text-topbar-foreground/75">
-            {NAV.map((n) => (
-              <li key={n.to}><Link to={n.to} className="transition hover:text-accent">{n.label}</Link></li>
-            ))}
-          </ul>
+        <div className="lg:col-span-2">
+          <h3 className="font-display text-xs font-bold uppercase text-topbar-foreground">Company</h3>
+          <nav className="mt-6 flex flex-col gap-3 text-sm" aria-label="Footer company links">
+            {NAV.map((n) => <Link key={n.to} to={n.to} className="group inline-flex items-center gap-2 transition hover:text-brand-soft"><span className="h-px w-3 bg-brand-soft/50 transition-all group-hover:w-5" />{n.label}</Link>)}
+          </nav>
         </div>
 
-        <div className="md:col-span-3">
-          <h4 className="relative pb-3 font-display text-sm font-semibold uppercase tracking-[0.2em] text-white after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:rounded-full after:bg-accent">Top Categories</h4>
-          <ul className="mt-5 space-y-2.5 text-sm text-topbar-foreground/75">
+        <div className="lg:col-span-3">
+          <h3 className="font-display text-xs font-bold uppercase text-topbar-foreground">Clinical categories</h3>
+          <nav className="mt-6 flex flex-col gap-3 text-sm" aria-label="Footer product categories">
             {CATEGORIES.slice(0, 5).map((c) => (
-              <li key={c.slug}>
-                <Link to="/products/$slug" params={{ slug: c.slug }} className="transition hover:text-accent">{c.name}</Link>
-              </li>
+              <Link key={c.slug} to="/products/$slug" params={{ slug: c.slug }} className="group inline-flex items-center gap-2 transition hover:text-brand-soft"><span className="h-px w-3 bg-brand-soft/50 transition-all group-hover:w-5" />{c.name}</Link>
             ))}
-          </ul>
+          </nav>
         </div>
 
-        <div className="md:col-span-3">
-          <h4 className="relative pb-3 font-display text-sm font-semibold uppercase tracking-[0.2em] text-white after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-8 after:rounded-full after:bg-accent">Get in Touch</h4>
-          <ul className="mt-5 space-y-3 text-sm text-topbar-foreground/75">
-            <li>
-              <a href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.address)}`} target="_blank" rel="noreferrer" className="flex items-start gap-2 hover:text-accent">
-                <span className="mt-0.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                {COMPANY.address}
-              </a>
-            </li>
-            {COMPANY.phones.map((p) => (
-              <li key={p}>
-                <a href={`tel:${p.replace(/\s/g, "")}`} className="flex items-center gap-2 font-semibold text-white hover:text-accent">
-                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                  {p}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-2 hover:text-accent">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                {COMPANY.email}
-              </a>
-            </li>
-          </ul>
+        <div className="lg:col-span-3">
+          <h3 className="font-display text-xs font-bold uppercase text-topbar-foreground">Contact desk</h3>
+          <div className="mt-6 space-y-4 text-sm">
+            <a href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY.address)}`} target="_blank" rel="noreferrer" className="flex items-start gap-3 transition hover:text-brand-soft"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-soft" /><span>{COMPANY.address}</span></a>
+            <div className="flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-soft" /><div>{COMPANY.phones.map((p) => <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="block font-medium text-topbar-foreground transition hover:text-brand-soft">{p}</a>)}</div></div>
+            <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-3 break-all transition hover:text-brand-soft"><Mail className="h-4 w-4 shrink-0 text-brand-soft" />{COMPANY.email}</a>
+          </div>
         </div>
       </div>
 
-      <div className="border-t border-white/10 bg-black/20">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-topbar-foreground/60">
-          <div>© {new Date().getFullYear()} Zentramed Health. All rights reserved.</div>
-          <div className="flex items-center gap-4">
-            <span className="text-white/50">{COMPANY.social}</span>
-            <span className="hidden h-3 w-px bg-white/20 sm:block" />
-            <span>Nairobi · Kenya</span>
-          </div>
+      <div className="border-y border-topbar-foreground/10 bg-topbar/35">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 font-mono text-[10px] uppercase text-footer-muted sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap gap-x-7 gap-y-2"><span>Certified global brands</span><span>Institutional supply</span><span>Pan-African delivery</span></div>
+          <span>{COMPANY.social}</span>
         </div>
+      </div>
+
+      <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 font-mono text-[10px] uppercase text-footer-muted sm:flex-row sm:items-center sm:justify-between">
+        <p>Copyright © {new Date().getFullYear()} Zentramed Health. All Rights Reserved.</p>
+        <p>Nairobi, Kenya</p>
       </div>
     </footer>
   );
