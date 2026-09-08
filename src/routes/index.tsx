@@ -600,27 +600,43 @@ function WhyChooseUsSection() {
     { value: 5, suffix: "", label: "Countries" },
   ];
   return (
-    <section className="bg-background py-20">
-      <div className="mx-auto max-w-7xl px-4">
-        <h2 className="font-display text-3xl font-bold text-accent md:text-4xl">Why Choose Us</h2>
-        <p className="mt-6 max-w-5xl text-muted-foreground md:text-lg">
-          As a trusted supplier of{" "}
-          <span className="font-semibold text-accent">end-to-end medical equipment and solutions</span>{" "}
-          across East Africa, Zentramed Health is your comprehensive source for healthcare supplies.
-          Whether you're outfitting a rural clinic, equipping a referral hospital or managing a
-          humanitarian program, our depth of experience and adaptability allow us to meet healthcare
-          demands at every scale. With operations reaching five countries and a dedicated team of
-          specialists and biomedical engineers, we strive to be your trusted partner in delivering
-          superior care through timely, high-quality solutions.
-        </p>
+    <section className="relative overflow-hidden bg-background py-24">
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-accent/5 blur-3xl" />
+      <div className="relative mx-auto max-w-7xl px-4">
+        <div className="grid gap-14 md:grid-cols-[0.85fr_1.15fr] md:gap-20">
+          <div>
+            <div className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em] text-accent">
+              <span className="h-px w-10 bg-accent" /> Why Choose Us
+            </div>
+            <h2 className="mt-5 font-display text-[2rem] font-extrabold leading-[1.02] tracking-[-0.035em] text-brand md:text-[2.9rem]">
+              Depth, scale
+              <span className="block font-normal text-muted-foreground/70">and follow-through.</span>
+            </h2>
+          </div>
+          <div className="md:pt-3">
+            <p className="text-[15.5px] font-light leading-[1.85] text-muted-foreground md:text-[17px]">
+              As a trusted supplier of{" "}
+              <span className="font-semibold text-brand">end-to-end medical equipment and solutions</span>{" "}
+              across East Africa, Zentramed Health is your comprehensive source for healthcare supplies.
+              Whether you're outfitting a rural clinic, equipping a referral hospital or managing a
+              humanitarian program, our depth of experience and adaptability allow us to meet healthcare
+              demands at every scale.
+            </p>
+            <p className="mt-5 text-[15.5px] font-light leading-[1.85] text-muted-foreground md:text-[17px]">
+              With operations reaching five countries and a dedicated team of specialists and biomedical
+              engineers, we strive to be your trusted partner in delivering superior care through timely,
+              high-quality solutions.
+            </p>
+          </div>
+        </div>
 
-        <div className="mt-14 grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 divide-border border-t border-border md:grid-cols-4 md:divide-x">
           {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="font-display text-5xl font-extrabold text-accent md:text-6xl">
-                <CountUp end={s.value} />{s.suffix}
+            <div key={s.label} className="px-2 py-8 md:px-8">
+              <div className="font-display text-[2.75rem] font-extrabold leading-none tracking-[-0.04em] text-brand md:text-[3.4rem]">
+                <CountUp end={s.value} /><span className="text-accent">{s.suffix}</span>
               </div>
-              <div className="mt-3 font-display text-sm font-bold uppercase tracking-widest text-foreground">{s.label}</div>
+              <div className="mt-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">{s.label}</div>
             </div>
           ))}
         </div>
