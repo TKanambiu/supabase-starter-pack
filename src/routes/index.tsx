@@ -106,7 +106,7 @@ function HomePage() {
 
       {/* Hero slider — press to pause, swipe or arrows to navigate */}
       <section
-        className="relative h-[560px] w-full cursor-grab select-none overflow-hidden active:cursor-grabbing md:h-[600px]"
+        className="relative w-full cursor-grab select-none overflow-hidden bg-brand active:cursor-grabbing"
         onMouseDown={(e) => onDown(e.clientX)}
         onMouseUp={(e) => onUp(e.clientX)}
         onMouseLeave={() => { dragX.current = null; setPaused(false); }}
@@ -114,50 +114,57 @@ function HomePage() {
         onTouchEnd={(e) => { onUp(e.changedTouches[0].clientX); setPaused(false); }}
       >
         <div
-          className="flex h-full transition-transform duration-[550ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
+          className="flex transition-transform duration-[550ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
           style={{ width: `${SLIDES.length * 100}%`, transform: `translateX(-${i * (100 / SLIDES.length)}%)` }}
         >
           {SLIDES.map((s, idx) => (
-            <div key={idx} className="relative h-full shrink-0 bg-brand" style={{ width: `${100 / SLIDES.length}%` }}>
-              <img
-                src={s.img}
-                alt=""
-                loading="eager"
-                decoding="async"
-                draggable={false}
-                fetchPriority={idx === 0 ? "high" : "low"}
-                className="absolute inset-0 h-full w-full object-contain md:object-cover object-center"
-              />
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-full md:w-2/3" style={{ background: "var(--gradient-hero)" }} />
-              <div className="absolute inset-0 mx-auto flex h-full max-w-7xl items-center px-4">
-                <div className="max-w-2xl text-white">
-                  <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-accent/95 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground shadow-lg">
+            <div key={idx} className="shrink-0 bg-brand" style={{ width: `${100 / SLIDES.length}%` }}>
+              <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 md:min-h-[600px] md:grid-cols-2 md:gap-14 md:py-14">
+                {/* Copy column — kept fully clear of the photo */}
+                <div className="order-2 text-white md:order-1">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent/95 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground shadow-lg">
                     {s.eyebrow}
                   </div>
-                  <h1 className="font-display text-3xl font-bold leading-tight drop-shadow-lg md:text-5xl">
+                  <h1 className="font-display text-3xl font-bold leading-tight md:text-5xl">
                     {s.title}{" "}
                     <span className="text-accent">{s.accent}</span>
                   </h1>
-                  <p className="mt-3 max-w-xl text-sm text-white/95 drop-shadow md:text-base">{s.body}</p>
-                  <ul className="mt-4 space-y-1.5 text-sm text-white/95 md:text-[15px]">
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/90 md:text-base">{s.body}</p>
+                  <ul className="mt-5 space-y-2 text-sm text-white/90 md:text-[15px]">
                     {s.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2 drop-shadow">
+                      <li key={b} className="flex items-start gap-2.5">
                         <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-7 flex flex-wrap gap-3">
                     <WhatsAppButton text={s.waText} />
                     <Link to="/contact" className="rounded-md border-2 border-white/80 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm hover:bg-white/20">
                       Contact Sales →
                     </Link>
                   </div>
                 </div>
+
+                {/* Photo column — nothing written over it */}
+                <div className="order-1 md:order-2">
+                  <div className="overflow-hidden rounded-2xl bg-white/95 p-3 shadow-2xl ring-1 ring-white/20">
+                    <img
+                      src={s.img}
+                      alt={`${s.title} ${s.accent}`}
+                      loading="eager"
+                      decoding="async"
+                      draggable={false}
+                      fetchPriority={idx === 0 ? "high" : "low"}
+                      className="h-56 w-full rounded-xl object-contain sm:h-72 md:h-[420px]"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           ))}
         </div>
+
 
         <button
           aria-label="Previous slide"
