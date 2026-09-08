@@ -130,29 +130,34 @@ function HomePage() {
               <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 md:min-h-[600px] md:grid-cols-2 md:gap-14 md:py-14">
                 {/* Copy column — kept fully clear of the photo */}
                 <div className="order-2 text-white md:order-1">
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent/95 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground shadow-lg">
+                  <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-accent/50 bg-accent/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-accent backdrop-blur-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                     {s.eyebrow}
                   </div>
-                  <h1 className="font-display text-3xl font-bold leading-tight md:text-5xl">
-                    {s.title}{" "}
-                    <span className="text-accent">{s.accent}</span>
+                  <h1 className="font-display text-[2.1rem] font-extrabold leading-[0.98] tracking-[-0.04em] md:text-[3.6rem]">
+                    <span className="block text-white">{s.title}</span>
+                    <span className="mt-1 block font-normal text-white/55">{s.accent}</span>
                   </h1>
-                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/90 md:text-base">{s.body}</p>
-                  <ul className="mt-5 space-y-2 text-sm text-white/90 md:text-[15px]">
+                  <p className="mt-6 max-w-lg text-[15px] font-light leading-relaxed text-white/75 md:text-[17px]">
+                    {s.body}
+                  </p>
+                  <ul className="mt-7 max-w-lg divide-y divide-white/10 border-y border-white/10">
                     {s.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2.5">
-                        <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <li key={b} className="flex items-start gap-3 py-2.5 text-[13.5px] font-medium leading-snug text-white/85 md:text-[14.5px]">
+                        <svg viewBox="0 0 24 24" className="mt-0.5 h-4 w-4 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 5 5L20 7" /></svg>
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-7 flex flex-wrap gap-3">
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
                     <WhatsAppButton text={s.waText} />
-                    <Link to="/contact" className="rounded-md border-2 border-white/80 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm hover:bg-white/20">
-                      Contact Sales →
+                    <Link to="/contact" className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.14em] text-white transition hover:border-accent hover:text-accent">
+                      Contact Sales
+                      <span className="transition-transform group-hover:translate-x-1">→</span>
                     </Link>
                   </div>
                 </div>
+
 
                 {/* Photo column — nothing written over it */}
                 <div className="order-1 md:order-2">
@@ -252,7 +257,7 @@ function HomePage() {
             <div className="absolute -left-4 -top-4 hidden h-full w-full rounded-2xl border-2 border-accent/40 md:block" />
             <div className="absolute -right-3 -bottom-3 hidden h-full w-full rounded-2xl bg-gradient-to-br from-brand/20 to-accent/20 md:block" />
             <img
-              src="/medical-grade-storage-facility.webp"
+              src="/zentramed-warehouse.png"
               alt="Zentramed medical-grade storage facility"
               className="relative aspect-[4/3] w-full rounded-2xl object-cover shadow-2xl ring-1 ring-border"
               loading="lazy"
@@ -360,17 +365,32 @@ function HomePage() {
       <TestimonialsSection />
 
       {/* CTA */}
-      <section className="bg-topbar text-topbar-foreground">
-        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 py-14 md:grid-cols-[1fr_auto]">
+      <section className="relative overflow-hidden bg-topbar text-topbar-foreground">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
+        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl items-end gap-10 px-4 py-20 md:grid-cols-[1.15fr_auto]">
           <div>
-            <h2 className="font-display text-3xl font-bold md:text-4xl">Ready to equip your facility?</h2>
-            <p className="mt-2 text-brand-foreground/80">Talk to our team for tailored quotes, bulk orders and technical advice.</p>
+            <div className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em] text-accent">
+              <span className="h-px w-10 bg-accent" /> Let's Talk
+            </div>
+            <h2 className="mt-5 max-w-2xl font-display text-[2.1rem] font-extrabold leading-[1.02] tracking-[-0.035em] md:text-[3.2rem]">
+              Ready to equip
+              <span className="block font-normal text-white/55">your facility?</span>
+            </h2>
+            <p className="mt-5 max-w-md text-[15px] font-light leading-relaxed text-white/70">
+              Tailored quotes, bulk orders and technical advice — from a team that answers within the hour.
+            </p>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-4 md:justify-end">
             <WhatsAppButton />
+            <Link to="/contact" className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.14em] text-white transition hover:border-accent hover:text-accent">
+              Contact Sales
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
           </div>
         </div>
       </section>
+
 
       <SiteFooter />
       <WhatsAppFloat />
@@ -580,27 +600,43 @@ function WhyChooseUsSection() {
     { value: 5, suffix: "", label: "Countries" },
   ];
   return (
-    <section className="bg-background py-20">
-      <div className="mx-auto max-w-7xl px-4">
-        <h2 className="font-display text-3xl font-bold text-accent md:text-4xl">Why Choose Us</h2>
-        <p className="mt-6 max-w-5xl text-muted-foreground md:text-lg">
-          As a trusted supplier of{" "}
-          <span className="font-semibold text-accent">end-to-end medical equipment and solutions</span>{" "}
-          across East Africa, Zentramed Health is your comprehensive source for healthcare supplies.
-          Whether you're outfitting a rural clinic, equipping a referral hospital or managing a
-          humanitarian program, our depth of experience and adaptability allow us to meet healthcare
-          demands at every scale. With operations reaching five countries and a dedicated team of
-          specialists and biomedical engineers, we strive to be your trusted partner in delivering
-          superior care through timely, high-quality solutions.
-        </p>
+    <section className="relative overflow-hidden bg-background py-24">
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-accent/5 blur-3xl" />
+      <div className="relative mx-auto max-w-7xl px-4">
+        <div className="grid gap-14 md:grid-cols-[0.85fr_1.15fr] md:gap-20">
+          <div>
+            <div className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em] text-accent">
+              <span className="h-px w-10 bg-accent" /> Why Choose Us
+            </div>
+            <h2 className="mt-5 font-display text-[2rem] font-extrabold leading-[1.02] tracking-[-0.035em] text-brand md:text-[2.9rem]">
+              Depth, scale
+              <span className="block font-normal text-muted-foreground/70">and follow-through.</span>
+            </h2>
+          </div>
+          <div className="md:pt-3">
+            <p className="text-[15.5px] font-light leading-[1.85] text-muted-foreground md:text-[17px]">
+              As a trusted supplier of{" "}
+              <span className="font-semibold text-brand">end-to-end medical equipment and solutions</span>{" "}
+              across East Africa, Zentramed Health is your comprehensive source for healthcare supplies.
+              Whether you're outfitting a rural clinic, equipping a referral hospital or managing a
+              humanitarian program, our depth of experience and adaptability allow us to meet healthcare
+              demands at every scale.
+            </p>
+            <p className="mt-5 text-[15.5px] font-light leading-[1.85] text-muted-foreground md:text-[17px]">
+              With operations reaching five countries and a dedicated team of specialists and biomedical
+              engineers, we strive to be your trusted partner in delivering superior care through timely,
+              high-quality solutions.
+            </p>
+          </div>
+        </div>
 
-        <div className="mt-14 grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 divide-border border-t border-border md:grid-cols-4 md:divide-x">
           {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="font-display text-5xl font-extrabold text-accent md:text-6xl">
-                <CountUp end={s.value} />{s.suffix}
+            <div key={s.label} className="px-2 py-8 md:px-8">
+              <div className="font-display text-[2.75rem] font-extrabold leading-none tracking-[-0.04em] text-brand md:text-[3.4rem]">
+                <CountUp end={s.value} /><span className="text-accent">{s.suffix}</span>
               </div>
-              <div className="mt-3 font-display text-sm font-bold uppercase tracking-widest text-foreground">{s.label}</div>
+              <div className="mt-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">{s.label}</div>
             </div>
           ))}
         </div>
