@@ -22,6 +22,8 @@ import {
   PlusCircle,
   ShieldCheck,
   PackageSearch,
+  Trash2,
+
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -717,24 +719,65 @@ function NewProductTab() {
             <p className="text-sm text-muted-foreground">Nothing added yet.</p>
           )}
           {customs.map((c) => (
-            <div key={c.id} className="flex items-center gap-3 rounded-lg border border-border p-2">
-              <div className="h-12 w-12 shrink-0 overflow-hidden rounded bg-white ring-1 ring-border">
-                {resolveImage(c.image_url, db?.signed ?? {}) ? (
-                  <img
-                    src={resolveImage(c.image_url, db?.signed ?? {})}
-                    alt=""
-                    className="h-full w-full object-contain"
-                  />
-                ) : null}
-              </div>
-              <div className="min-w-0">
-                <div className="truncate text-sm font-semibold">{c.name}</div>
-                <div className="text-[11px] text-muted-foreground">{formatKES(c.price)}</div>
-              </div>
-            </div>
+            <CustomProductRow key={c.id} row={c} signed={db?.signed ?? {}} />
           ))}
         </div>
       </aside>
     </div>
   );
 }
+
+function CustomProductRow({
+  row,
+  signed,
+}: {
+  row: { id: string; name: string; price: number; image_url: string | null };
+  signed: Record<string, string>;
+}) {
+  const qc = useQueryClient();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const src = resolveImage(row.image_url, signed);
+
+  async function remove() {
+    if (!window.confirm(`Remove “${row.name}” from the website?`)) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const { error: delError } = await supabase.from("products").delete().eq("id", row.id);
+      if (delError) throw delError;
+      if (row.image_url?.startsWith(STORAGE_PREFIX)) {
+        await supabase.storage.from(BUCKET).remove([row.image_url.slice(STORAGE_PREFIX.length)]);
+      }
+      await qc.invalidateQueries({ queryKey: ["catalogue-db"] });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not remove this product");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="rounded-lg border border-border p-2">
+      <div className="flex items-center gap-3">
+        <div className="h-12 w-12 shrink-0 overflow-hidden rounded bg-white ring-1 ring-border">
+          {src ? <img src={src} alt="" className="h-full w-full object-contain" /> : null}
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-sm font-semibold">{row.name}</div>
+          <div className="text-[11px] text-muted-foreground">{formatKES(row.price)}</div>
+        </div>
+        <button
+          onClick={remove}
+          disabled={busy}
+          aria-label={`Remove ${row.name}`}
+          className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-[11px] font-bold text-destructive hover:border-destructive disabled:opacity-50"
+        >
+          {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />}
+          Remove
+        </button>
+      </div>
+      {error && <div className="mt-1.5 text-[11px] font-semibold text-destructive">{error}</div>}
+    </div>
+  );
+}
+
