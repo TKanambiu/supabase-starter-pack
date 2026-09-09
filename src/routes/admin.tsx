@@ -22,6 +22,8 @@ import {
   PlusCircle,
   ShieldCheck,
   PackageSearch,
+  Trash2,
+
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
