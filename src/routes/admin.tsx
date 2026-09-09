@@ -44,14 +44,34 @@ function AdminPage() {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [ready, setReady] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
+    let active = true;
+    const timer = window.setTimeout(() => {
+      if (!active) return;
+      setAuthError("The sign-in service took too long to respond. Please refresh and try again.");
+      setReady(true);
+    }, 8000);
+
+    supabase.auth.getSession().then(({ data, error }) => {
+      if (!active) return;
+      window.clearTimeout(timer);
       setSession(data.session);
+      setAuthError(error ? "We could not check your sign-in. Please try again." : null);
       setReady(true);
     });
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
-    return () => sub.subscription.unsubscribe();
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, nextSession) => {
+      setSession(nextSession);
+      setIsAdmin(null);
+      setAuthError(null);
+      setReady(true);
+    });
+    return () => {
+      active = false;
+      window.clearTimeout(timer);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -59,15 +79,41 @@ function AdminPage() {
       setIsAdmin(null);
       return;
     }
+    let active = true;
+    const timer = window.setTimeout(() => {
+      if (!active) return;
+      setAuthError("We could not verify administrator access. Please sign out and try again.");
+      setIsAdmin(false);
+    }, 8000);
+
     supabase
-      .rpc("has_role", { _user_id: session.user.id, _role: "admin" })
-      .then(({ data }) => setIsAdmin(Boolean(data)));
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", session.user.id)
+      .eq("role", "admin")
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (!active) return;
+        window.clearTimeout(timer);
+        if (error) {
+          setAuthError("Administrator access could not be verified. Please try again.");
+          setIsAdmin(false);
+          return;
+        }
+        setAuthError(null);
+        setIsAdmin(data?.role === "admin");
+      });
+
+    return () => {
+      active = false;
+      window.clearTimeout(timer);
+    };
   }, [session]);
 
   if (!ready) return <FullScreenLoader />;
-  if (!session) return <LoginScreen />;
+  if (!session) return <LoginScreen initialError={authError} />;
   if (isAdmin === null) return <FullScreenLoader />;
-  if (!isAdmin) return <NotAuthorised email={session.user.email ?? ""} />;
+  if (!isAdmin) return <NotAuthorised email={session.user.email ?? ""} error={authError} />;
   return <Dashboard email={session.user.email ?? ""} />;
 }
 
@@ -83,13 +129,13 @@ async function signOut() {
   await supabase.auth.signOut();
 }
 
-function NotAuthorised({ email }: { email: string }) {
+function NotAuthorised({ email, error }: { email: string; error?: string | null }) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-muted/30 px-4 text-center">
       <ShieldCheck className="h-10 w-10 text-brand" />
       <h1 className="font-display text-2xl font-bold">No admin access</h1>
       <p className="max-w-md text-sm text-muted-foreground">
-        {email} is signed in but is not an administrator of this catalogue.
+        {error ?? `${email} is signed in but is not an administrator of this catalogue.`}
       </p>
       <button
         onClick={signOut}
@@ -103,22 +149,30 @@ function NotAuthorised({ email }: { email: string }) {
 
 /* ---------------------------------------------------------------- login */
 
-function LoginScreen() {
+function LoginScreen({ initialError }: { initialError?: string | null }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(initialError ?? null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email.trim().toLowerCase(),
-      password,
-    });
-    if (error) setError("Those details did not match an account. Please check and try again.");
-    setBusy(false);
+    try {
+      const result = await Promise.race([
+        supabase.auth.signInWithPassword({
+          email: email.trim().toLowerCase(),
+          password,
+        }),
+        new Promise<never>((_, reject) => window.setTimeout(() => reject(new Error("timeout")), 12000)),
+      ]);
+      if (result.error) setError("Those details did not match an account. Please check and try again.");
+    } catch {
+      setError("The sign-in service did not respond. Check your connection and try again.");
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
@@ -138,7 +192,7 @@ function LoginScreen() {
         <form onSubmit={submit} className="mt-7 space-y-4">
           <div>
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              Username
+              Email address
             </label>
             <input
               type="email"
