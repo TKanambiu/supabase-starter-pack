@@ -277,16 +277,26 @@ export function SiteFooter() {
 
         <div className="lg:col-span-2">
           <h3 className="font-display text-xs font-bold uppercase text-topbar-foreground">Company</h3>
-          <nav className="mt-6 flex flex-col gap-3 text-sm" aria-label="Footer company links">
-            {NAV.map((n) => <Link key={n.to} to={n.to} className="group inline-flex items-center gap-2 transition hover:text-brand-soft"><span className="h-px w-3 bg-brand-soft/50 transition-all group-hover:w-5" />{n.label}</Link>)}
+          <nav className="mt-5 divide-y divide-topbar-foreground/10 text-sm" aria-label="Footer company links">
+            {NAV.map((n, index) => (
+              <Link key={n.to} to={n.to} className="group flex items-center gap-3 py-3 transition hover:text-brand-soft">
+                <span className="font-mono text-[9px] text-brand-soft/70">0{index + 1}</span>
+                <span className="flex-1 font-medium">{n.label}</span>
+                <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" />
+              </Link>
+            ))}
           </nav>
         </div>
 
         <div className="lg:col-span-3">
           <h3 className="font-display text-xs font-bold uppercase text-topbar-foreground">Clinical categories</h3>
-          <nav className="mt-6 flex flex-col gap-3 text-sm" aria-label="Footer product categories">
-            {CATEGORIES.slice(0, 5).map((c) => (
-              <Link key={c.slug} to="/products/$slug" params={{ slug: c.slug }} className="group inline-flex items-center gap-2 transition hover:text-brand-soft"><span className="h-px w-3 bg-brand-soft/50 transition-all group-hover:w-5" />{c.name}</Link>
+          <nav className="mt-5 divide-y divide-topbar-foreground/10 text-sm" aria-label="Footer product categories">
+            {CATEGORIES.slice(0, 5).map((c, index) => (
+              <Link key={c.slug} to="/products/$slug" params={{ slug: c.slug }} className="group flex items-center gap-3 py-3 transition hover:text-brand-soft">
+                <span className="grid h-5 w-5 shrink-0 place-items-center border border-brand-soft/25 font-mono text-[8px] text-brand-soft">{index + 1}</span>
+                <span className="flex-1 font-medium">{c.name}</span>
+                <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" />
+              </Link>
             ))}
           </nav>
         </div>
