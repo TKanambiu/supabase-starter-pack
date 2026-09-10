@@ -162,16 +162,19 @@ function LoginScreen({ initialError }: { initialError?: string | null }) {
     setBusy(true);
     setError(null);
     try {
-      const result = await Promise.race([
-        supabase.auth.signInWithPassword({
-          email: email.trim().toLowerCase(),
-          password,
-        }),
-        new Promise<never>((_, reject) => window.setTimeout(() => reject(new Error("timeout")), 12000)),
-      ]);
-      if (result.error) setError("Those details did not match an account. Please check and try again.");
-    } catch {
-      setError("The sign-in service did not respond. Check your connection and try again.");
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: email.trim().toLowerCase(),
+        password,
+      });
+      if (signInError) {
+        setError(signInError.message || "Those details did not match an account. Please check and try again.");
+      }
+    } catch (signInError) {
+      setError(
+        signInError instanceof Error
+          ? signInError.message
+          : "The sign-in service did not respond. Check your connection and try again.",
+      );
     } finally {
       setBusy(false);
     }
@@ -248,7 +251,7 @@ type Tab = "catalogue" | "new";
 
 function Dashboard({ email }: { email: string }) {
   const [tab, setTab] = useState<Tab>("catalogue");
-  const { data: db, isLoading } = useCatalogueDb();
+  const { data: db, isLoading, isError, error, refetch } = useCatalogueDb();
   const products = useMemo(() => mergedProducts(db), [db]);
 
   return (
@@ -298,6 +301,21 @@ function Dashboard({ email }: { email: string }) {
       <main className="mx-auto max-w-7xl px-4 py-8">
         {isLoading ? (
           <FullScreenLoader />
+        ) : isError ? (
+          <div className="mx-auto max-w-xl rounded-xl border border-destructive/30 bg-background p-8 text-center shadow-sm">
+            <PackageSearch className="mx-auto h-9 w-9 text-destructive" />
+            <h2 className="mt-4 font-display text-xl font-bold">Catalogue could not be loaded</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {error instanceof Error ? error.message : "Please check your connection and try again."}
+            </p>
+            <button
+              type="button"
+              onClick={() => void refetch()}
+              className="mt-5 rounded-md bg-brand px-4 py-2 text-sm font-bold text-brand-foreground hover:bg-accent hover:text-accent-foreground"
+            >
+              Try again
+            </button>
+          </div>
         ) : tab === "catalogue" ? (
           <CatalogueTab products={products} />
         ) : (
